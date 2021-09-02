@@ -19,6 +19,14 @@ const Home = () => {
     }
   }, [count])
 
+  // 依存するものを渡さないとDOMが作成された時に１度だけ実行されるものになる
+  // Vue.js の mounted になる
+  useEffect(() => {
+    fetch('/api/hello').then((res) => 
+      res.json().then((data) => console.log(data.name)) 
+    )
+  }, [])
+
   return (
     <div style={{ margin: '64px'}}>
       Home

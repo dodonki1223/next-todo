@@ -20,11 +20,17 @@ const Home = () => {
   }, [count])
 
   // 依存するものを渡さないとDOMが作成された時に１度だけ実行されるものになる
-  // Vue.js の mounted になる
+  // Vue.js でいう mounted になります
   useEffect(() => {
-    fetch('/api/hello').then((res) => 
-      res.json().then((data) => console.log(data.name)) 
-    )
+    const getName = async () => {
+      const name = await fetch('/api/hello').then((res) => 
+        res.json().then((data) => data.name)
+      );
+      setDisplayName(name);
+    }
+    // void の意味は返り値はなしですよという意味です
+    // void はなくても実際に動きます
+    void getName()
   }, [])
 
   return (
